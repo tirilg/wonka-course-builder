@@ -6,6 +6,7 @@ type AddStepButtonProps = {
   dispatch: Dispatch<Action>;
 };
 
+// Render one button per step type
 export default function AddStepButtons({ dispatch }: AddStepButtonProps) {
   return (
     <div className="grid grid-cols-3 gap-2">

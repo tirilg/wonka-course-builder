@@ -2,9 +2,12 @@ import { useReducer } from "react";
 import { courseReducer, initialState } from "./state/courseReducer";
 import Header from "./components/Header";
 import StepList from "./components/steps/StepList";
+import StepEditor from "./components/editor/StepEditor";
 
 function App() {
   const [state, dispatch] = useReducer(courseReducer, initialState);
+  const selected = state.steps.find((s) => s.id === state.selectedId);
+
   return (
     <section className="min-h-screen">
       <Header
@@ -19,6 +22,13 @@ function App() {
             dispatch={dispatch}
           />
         </aside>
+        <section aria-label="Edit step" className="min-w-0 flex-1">
+          {selected ? (
+            <StepEditor step={selected} dispatch={dispatch} />
+          ) : (
+            <h2>Add empty state</h2>
+          )}
+        </section>
       </main>
     </section>
   );
