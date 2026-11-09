@@ -1,7 +1,10 @@
+// Three kinds of content a step can hold
 export type StepType = 'text' | 'image' | 'multipleChoice'; 
 
+// Single choice in multiple choice
 export type Choice = { id: string; text: string }
 
+// Single step in a course
 export type Step = {
     id: string
     type: StepType
