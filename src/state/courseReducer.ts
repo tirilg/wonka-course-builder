@@ -13,8 +13,8 @@ export type Action =
   | { type: "add"; stepType: StepType }
   | { type: "select"; id: string }
   | { type: "update"; id: string; patch: StepPatch }
-  | { type: "delete"; id: string };
-// TO DO: | { type: "move"; from: number; to: number }
+  | { type: "delete"; id: string }
+  | { type: "move"; from: number; to: number };
 
 export const initialState: State = { title: "", steps: [], selectedId: null };
 
@@ -65,5 +65,14 @@ export function courseReducer(state: State, action: Action): State {
         steps: state.steps.filter((s) => s.id !== action.id),
         selectedId: state.selectedId === action.id ? null : state.selectedId,
       };
+
+    case "move": {
+      const { from, to } = action;
+      if (to < 0 || to >= state.steps.length || from === to) return state;
+      const steps = [...state.steps];
+      const [moved] = steps.splice(from, 1);
+      steps.splice(to, 0, moved);
+      return { ...state, steps };
+    }
   }
 }

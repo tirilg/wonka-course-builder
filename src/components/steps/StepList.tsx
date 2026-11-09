@@ -18,12 +18,13 @@ export default function StepList({
   return (
     <div className="flex flex-col gap-3">
       <h2 className="text-2xl text-burgundy">Steps</h2>
-      <ol className="flex flex-col-gap-2">
+      <ol className="flex flex-col gap-3">
         {steps.map((step, i) => (
           <StepListItem
             key={step.id}
             step={step}
             index={i}
+            isLast={i === steps.length - 1}
             isSelected={step.id === selectedId}
             dispatch={dispatch}
           />
