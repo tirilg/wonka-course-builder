@@ -2,6 +2,7 @@ import type { Dispatch } from "react";
 import type { Step } from "../../types";
 import type { Action } from "../../state/courseReducer";
 import StepListItem from "./StepListItem";
+import AddStepButtons from "./AddStepButton";
 
 type StepListProps = {
   steps: Step[];
@@ -19,9 +20,16 @@ export default function StepList({
       <h2 className="text-2xl text-burgundy">Steps</h2>
       <ol className="flex flex-col-gap-2">
         {steps.map((step, i) => (
-          <StepListItem />
+          <StepListItem
+            key={step.id}
+            step={step}
+            index={i}
+            isSelected={step.id === selectedId}
+            dispatch={dispatch}
+          />
         ))}
       </ol>
+      <AddStepButtons dispatch={dispatch} />
     </div>
   );
 }
