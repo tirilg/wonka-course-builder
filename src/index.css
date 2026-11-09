@@ -13,43 +13,43 @@
    ------------------------------------------------------------------ */
 @theme {
   /* Surfaces */
-  --color-cream: #FAF6FD;         /* page background */
-  --color-lavender: #EFE5F9;      /* header, tints, inactive buttons */
-  --color-lavender-line: #DCCAF0; /* borders on fields and cards */
+  --color-cream: #faf6fd; /* page background */
+  --color-lavender: #efe5f9; /* header, tints, inactive buttons */
+  --color-lavender-line: #dccaf0; /* borders on fields and cards */
 
   /* Brand */
-  --color-purple: #6B3FA0;       /* primary actions, selected states */
-  --color-purple-dark: #56308A;  /* hover */
-  --color-purple-deep: #4A2775;  /* the "3D" edge under candy buttons */
-  --color-burgundy: #8A2C55;     /* logo and headings (Wonka's jacket) */
-  --color-wisteria: #B794DC;     /* decoration */
+  --color-purple: #6b3fa0; /* primary actions, selected states */
+  --color-purple-dark: #56308a; /* hover */
+  --color-purple-deep: #4a2775; /* the "3D" edge under candy buttons */
+  --color-burgundy: #8a2c55; /* logo and headings (Wonka's jacket) */
+  --color-wisteria: #b794dc; /* decoration */
 
   /* Rewards and accents */
-  --color-gold: #E8B83C;         /* golden ticket: correct answer, publish */
-  --color-gold-dark: #B98A1F;
-  --color-gold-soft: #FFF8E3;    /* background of the correct answer row */
-  --color-pink: #F29BB8;         /* decoration only, never text */
+  --color-gold: #e8b83c; /* golden ticket: correct answer, publish */
+  --color-gold-dark: #b98a1f;
+  --color-gold-soft: #fff8e3; /* background of the correct answer row */
+  --color-pink: #f29bb8; /* decoration only, never text */
 
   /* Feedback */
-  --color-mint: #5FC2B2;
-  --color-mint-soft: #DDF4EF;    /* "Saved", "Ready", correct in preview */
-  --color-mint-text: #1F7A6C;
-  --color-warning-soft: #FFF1CC; /* gentle "needs a look" hints */
-  --color-warning-text: #7A4B00;
-  --color-danger: #A12A3A;       /* delete */
+  --color-mint: #5fc2b2;
+  --color-mint-soft: #ddf4ef; /* "Saved", "Ready", correct in preview */
+  --color-mint-text: #1f7a6c;
+  --color-warning-soft: #fff1cc; /* gentle "needs a look" hints */
+  --color-warning-text: #7a4b00;
+  --color-danger: #a12a3a; /* delete */
 
   /* Text */
-  --color-ink: #2E1A3B;          /* body text  */
-  --color-muted: #6E5A7E;        /* help text */
+  --color-ink: #2e1a3b; /* body text  */
+  --color-muted: #6e5a7e; /* help text */
 
   /* Fonts */
-  --font-logo: "Wonka", serif;      /* logo + big empty-state headings ONLY */
-  --font-heading: "Fredoka", sans-serif;   /* headings */
-  --font-body: "Nunito", sans-serif;       /* everything people read and type in */
+  --font-logo: "Wonka", serif; /* logo + big empty-state headings ONLY */
+  --font-heading: "Fredoka", sans-serif; /* headings */
+  --font-body: "Nunito", sans-serif; /* everything people read and type in */
 
   /* Shape */
-  --radius-card: 1.5rem;    /* 24px - big white cards */
-  --radius-item: 1rem;      /* 16px - step list items, answer rows */
+  --radius-card: 1.5rem; /* 24px - big white cards */
+  --radius-item: 1rem; /* 16px - step list items, answer rows */
   --radius-field: 0.875rem; /* 14px - inputs */
   --radius-button: 0.75rem; /* 12px - buttons */
 
@@ -65,7 +65,9 @@
     @apply bg-cream font-body text-ink antialiased;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     @apply font-heading font-semibold;
   }
 
@@ -88,17 +90,36 @@
    ------------------------------------------------------------------ */
 
 @utility scallop-edge {
-  height: 16px;
-  background: radial-gradient(circle at 14px 0, var(--color-lavender) 13px, transparent 14px) 0 0 / 28px 16px repeat-x;
+  height: 19px;
+  border-top: 1px solid var(--color-burgundy);
+  background:
+    radial-gradient(
+        circle at 14px 0,
+        var(--color-wisteria) 13px,
+        transparent 14px
+      )
+      0 0 / 56px 16px repeat-x,
+    radial-gradient(
+        circle at 42px 0,
+        var(--color-burgundy) 13px,
+        transparent 14px
+      )
+      0 0 / 56px 16px repeat-x;
 }
 
 @utility candy-stripe {
-  background: repeating-linear-gradient(135deg, var(--color-wisteria) 0 8px, var(--color-pink) 8px 16px);
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-wisteria) 0 8px,
+    var(--color-pink) 8px 16px
+  );
 }
 
 @utility candy-press {
   box-shadow: 0 3px 0 var(--color-purple-deep);
-  transition: transform 100ms ease, box-shadow 100ms ease;
+  transition:
+    transform 100ms ease,
+    box-shadow 100ms ease;
 
   &:active:not(:disabled) {
     transform: translateY(3px);
@@ -108,7 +129,9 @@
 
 @utility candy-press-gold {
   box-shadow: 0 3px 0 var(--color-gold-dark);
-  transition: transform 100ms ease, box-shadow 100ms ease;
+  transition:
+    transform 100ms ease,
+    box-shadow 100ms ease;
 
   &:active:not(:disabled) {
     transform: translateY(3px);
@@ -120,7 +143,9 @@
    Respect people who don't want motion
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
