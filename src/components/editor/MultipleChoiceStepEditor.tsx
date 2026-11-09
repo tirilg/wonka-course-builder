@@ -1,6 +1,7 @@
 import type { Step, StepPatch } from "../../types";
 import { createChoice } from "../../state/courseReducer";
 import { fieldClass, labelClass } from "../../utils/styles";
+import GoldenTicketButton from "./GoldenTicketButton";
 
 type Props = {
   step: Step;
@@ -34,27 +35,42 @@ export default function MultipleChoiceStepEditor({ step, onChange }: Props) {
 
       <fieldset className="flex flex-col gap-2">
         <legend className={labelClass}>Answers (pick the correct one)</legend>
-        {mc.choices.map((choice, i) => (
-          <div key={choice.id} className="flex items-center gap-2">
-            <input
-              type="radio"
-              name={`correct-${step.id}`}
-              checked={mc.correctChoiceId === choice.id}
-              onChange={() =>
-                onChange({
-                  multipleChoice: { ...mc, correctChoiceId: choice.id },
-                })
-              }
-              aria-label={`Answer ${i + 1} is correct`}
-            />
-            <input
-              value={choice.text}
-              onChange={(e) => setChoiceText(choice.id, e.target.value)}
-              aria-label={`Answer ${i + 1}`}
-              className={fieldClass}
-            />
-          </div>
-        ))}
+        {mc.choices.map((choice, i) => {
+          const isCorrect = choice.id === mc.correctChoiceId;
+
+          return (
+            <div
+              key={choice.id}
+              className={`flex items-center gap-2.5 rounded-item border-2 p-2 transition-colors ${
+                isCorrect
+                  ? "border-gold bg-gold-soft"
+                  : "border-lavender bg-white"
+              }`}
+            >
+              <GoldenTicketButton
+                name={`correct-${step.id}`}
+                label={`Answer ${i + 1} is correct`}
+                isCorrect={isCorrect}
+                onSelect={() =>
+                  onChange({
+                    multipleChoice: { ...mc, correctChoiceId: choice.id },
+                  })
+                }
+              />
+              <input
+                value={choice.text}
+                onChange={(e) => setChoiceText(choice.id, e.target.value)}
+                aria-label={`Answer ${i + 1}`}
+                className={fieldClass}
+              />
+              {isCorrect && (
+                <span className="shrink-0 rounded-full bg-gold px-2.5 py-1 text-xs font-extrabold tracking-wide uppercase">
+                  Correct
+                </span>
+              )}
+            </div>
+          );
+        })}
       </fieldset>
 
       <button

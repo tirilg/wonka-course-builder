@@ -139,6 +139,49 @@
   }
 }
 
+/* Golden ticket: solid gold with a highlight that can sweep across it */
+@utility golden-ticket {
+  background: linear-gradient(
+      110deg,
+      var(--color-gold) 40%,
+      #fce7a8 50%,
+      var(--color-gold) 60%
+    )
+    0% 0 / 250% 100%;
+}
+
+/* Plays once when an answer is chosen: a little wiggle + one shine sweep */
+@utility ticket-celebrate {
+  animation:
+    ticket-wiggle 450ms ease-in-out,
+    ticket-shine 900ms ease-out;
+}
+
+@keyframes ticket-wiggle {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    transform: rotate(-8deg) scale(1.08);
+  }
+  50% {
+    transform: rotate(6deg) scale(1.08);
+  }
+  75% {
+    transform: rotate(-3deg) scale(1.02);
+  }
+}
+
+@keyframes ticket-shine {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
 /* ------------------------------------------------------------------
    Respect people who don't want motion
    ------------------------------------------------------------------ */
