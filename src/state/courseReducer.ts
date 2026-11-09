@@ -1,52 +1,69 @@
-import type { Step, StepType } from '../types';
+import type { Choice, Step, StepPatch, StepType } from "../types";
 
-// State is everything the course editor needs to remember
-export type State = {steps: Step[]; selectedId: string | null }
+// What the app remembers
+export type State = {
+  title: string;
+  steps: Step[];
+  selectedId: string | null;
+};
 
-// Every available action that changes the course
-export type Action = 
-  | { type: 'add'; stepType: StepType }
-  | { type: 'update'; id: string; patch: Partial<Step> }
-  | { type: 'move'; from: number; to: number }
-  | { type: 'delete'; id: string }
-  | { type: 'select'; id: string }
+// Every change that is allowed. Components send an action with dispatch(...)
+export type Action =
+  | { type: "rename"; title: string }
+  | { type: "add"; stepType: StepType }
+  | { type: "select"; id: string }
+  | { type: "update"; id: string; patch: StepPatch }
+  | { type: "delete"; id: string };
+// TO DO: | { type: "move"; from: number; to: number }
 
-// Helper for adding unique id to empty choice
-const newChoice = () => ({id: crypto.randomUUID(), text: ''})
+export const initialState: State = { title: "", steps: [], selectedId: null };
 
-// Creates a new, empty step of selected type
-export function createStep(type: StepType): Step {
-    return {
-        id: crypto.randomUUID(),
-        type, 
-        text: {title: '', body: ''}, 
-        image: {url: '', alt: ''},
-        multipleChoice: {
-            question: '', 
-            choices: [newChoice(), newChoice()],
-            correctChoiceId: null,
-        }
-    }
+export function createChoice(): Choice {
+  return { id: crypto.randomUUID(), text: "" };
 }
 
-// Reducer: takes the current state and an action and returns the new state
+// A new, empty step
+function createStep(type: StepType): Step {
+  return {
+    id: crypto.randomUUID(),
+    type,
+    text: { title: "", body: "" },
+    image: { url: "", alt: "" },
+    multipleChoice: {
+      question: "",
+      choices: [createChoice(), createChoice()],
+      correctChoiceId: null,
+    },
+  };
+}
+
+// Takes the old state + an action and returns a new state.
 export function courseReducer(state: State, action: Action): State {
-    switch(action.type) {
-        case 'add': {
-            const step = createStep(action.stepType)
+  switch (action.type) {
+    case "rename":
+      return { ...state, title: action.title };
 
-            //Insert new step right after the selected one (or at the end if none are selected)
-            const selectedIndex = state.steps.findIndex(s => s.id === state.selectedId)
-            const insertAt = selectedIndex === -1 ? state.steps.length : selectedIndex + 1
-
-            const steps = [...state.steps];
-            steps.splice(insertAt, 0, step)
-
-            return {steps, selectedId: step.id}
-
-        }
-        // Actions not handled yet: return the state unchanged.
-        default:
-            return state
+    case "add": {
+      const step = createStep(action.stepType);
+      return { ...state, steps: [...state.steps, step], selectedId: step.id };
     }
+
+    case "select":
+      return { ...state, selectedId: action.id };
+
+    case "update":
+      return {
+        ...state,
+        steps: state.steps.map((s) =>
+          s.id === action.id ? { ...s, ...action.patch } : s,
+        ),
+      };
+
+    case "delete":
+      return {
+        ...state,
+        steps: state.steps.filter((s) => s.id !== action.id),
+        selectedId: state.selectedId === action.id ? null : state.selectedId,
+      };
+  }
 }

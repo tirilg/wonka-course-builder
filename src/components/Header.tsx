@@ -1,8 +1,9 @@
 type HeaderProps = {
   title: string;
+  onTitleChange: (title: string) => void;
 };
 
-export default function Header({ title }: HeaderProps) {
+export default function Header({ title, onTitleChange }: HeaderProps) {
   return (
     <>
       <header className="flex flex-wrap items-center gap-x-6 gap-y-3 px-8 py-4 bg-lavender">
@@ -26,6 +27,7 @@ export default function Header({ title }: HeaderProps) {
             type="text"
             id="course-title"
             value={title}
+            onChange={(e) => onTitleChange(e.target.value)}
             placeholder="Give your course a name"
             className="w-full max-w-md border-b-2 border-dashed border-lavender-line bg-transparent py-1 font-heading text-xl placeholder:text-muted/70 focus:border-purple"
           />
