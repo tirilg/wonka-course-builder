@@ -60,7 +60,9 @@ export default function StepEditor({
       </section>
 
       {/* Where you are in the course */}
-      <footer className="border-t border-lavender pt-4 text-sm font-bold text-muted">
+      {/* pt-6 above the text, and -mb-2 trims the card's 32px bottom padding to 24px,
+          so there's the same space above and below the text */}
+      <footer className="-mb-2 border-t border-lavender pt-6 text-sm font-bold text-muted">
         Step {index + 1} of {total}
       </footer>
     </div>

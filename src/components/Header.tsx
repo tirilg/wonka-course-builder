@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Undo2 } from "lucide-react";
+import { Ticket, Undo2 } from "lucide-react";
 import type { Step } from "../types";
 import { getPublishBlocker } from "../utils/steps";
 
@@ -11,6 +11,10 @@ type HeaderProps = {
   steps: Step[];
   onPublish: () => void;
 };
+
+// Shared shape for the header buttons
+const headerButtonClass =
+  "flex h-12 items-center gap-2 rounded-button border-2 px-5 font-extrabold transition-colors";
 
 export default function Header({
   title,
@@ -70,7 +74,7 @@ export default function Header({
               type="button"
               onClick={onUndo}
               disabled={!canUndo}
-              className="flex h-12 items-center gap-2 rounded-button border-2 border-lavender-line bg-white px-4 font-extrabold text-purple hover:border-purple"
+              className={`candy-press ${headerButtonClass} border-purple bg-white text-purple hover:bg-lavender`}
             >
               <Undo2 aria-hidden="true" className="size-5" />
               Undo
@@ -82,9 +86,10 @@ export default function Header({
               onClick={onPublish}
               disabled={!!publishBlocker}
               title={publishBlocker ?? undefined}
-              className="candy-press-gold flex h-12 items-center gap-2 rounded-button bg-gold px-5 font-extrabold text-ink hover:brightness-105"
+              // Dark gold border, like Undo's purple one, so both edges look equally thick
+              className={`candy-press-gold ${headerButtonClass} border-gold-dark bg-gold text-ink hover:bg-[#dcab2f]`}
             >
-              <Send aria-hidden="true" className="size-5" />
+              <Ticket aria-hidden="true" className="size-5" />
               Publish course
             </button>
           </div>

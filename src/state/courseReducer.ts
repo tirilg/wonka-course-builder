@@ -142,15 +142,20 @@ function applyAction(state: State, action: Action): State {
     case "select":
       return { ...state, selectedId: action.id };
 
-    // Change some fields of a step (typing, picking the correct answer...).
-    // Not undoable, so typing never fills up the undo list.
-    case "update":
-      return {
-        ...state,
-        steps: state.steps.map((s) =>
-          s.id === action.id ? { ...s, ...action.patch } : s,
-        ),
-      };
+    // Change some fields of a step (typing, picking the correct answer...)
+    case "update": {
+      const steps = state.steps.map((s) =>
+        s.id === action.id ? { ...s, ...action.patch } : s,
+      );
+
+      // Changing the step type starts it fresh
+      if (action.patch.type) {
+        const leftIds = state.leftIds.filter((id) => id !== action.id);
+        return { ...state, steps, leftIds };
+      }
+
+      return { ...state, steps };
+    }
 
     // Remove a step, remembering where it was so undo can put it back
     case "delete": {

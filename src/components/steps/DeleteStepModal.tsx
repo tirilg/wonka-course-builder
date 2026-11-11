@@ -32,10 +32,7 @@ export default function DeleteStepModal({
         <h2 id="delete-heading" className="text-2xl font-extrabold text-ink">
           Are you sure?
         </h2>
-        <p className="text-muted">
-          <strong className="text-ink">{summary}</strong> will be removed from
-          the course. You can still undo this afterwards.
-        </p>
+        <p className="text-muted">This step will be removed from the course</p>
 
         <div className="mt-2 grid grid-cols-2 gap-3">
           <button
