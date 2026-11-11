@@ -86,7 +86,7 @@ export default function StepListItem({
     >
       {/* Top row: drag handle, number, type/summary and status icon */}
       <div className="flex items-center gap-3 px-4 py-3">
-        <div className="text-purple">
+        <div className="cursor-pointer text-purple">
           <GripVertical aria-hidden="true" className="size-5" />
         </div>
 
