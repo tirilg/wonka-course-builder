@@ -1,12 +1,15 @@
 import type { Step, StepPatch } from "../../types";
 import { fieldClass, labelClass } from "../../utils/styles";
 
-type Props = {
+type ImageStepEditorProps = {
   step: Step;
   onChange: (patch: StepPatch) => void;
 };
 
-export default function ImageStepEditor({ step, onChange }: Props) {
+export default function ImageStepEditor({
+  step,
+  onChange,
+}: ImageStepEditorProps) {
   const { image } = step;
 
   return (
@@ -25,6 +28,7 @@ export default function ImageStepEditor({ step, onChange }: Props) {
       </label>
 
       <label className="flex flex-col gap-1">
+        {/* Used as alt text, so people who can't see the image know what it shows */}
         <span className={labelClass}>Description (for screen readers)</span>
         <input
           value={image.alt}

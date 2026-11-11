@@ -30,13 +30,19 @@
   --color-gold-soft: #fff8e3; /* background of the correct answer row */
   --color-pink: #f29bb8; /* decoration only, never text */
 
+  /* Chocolate (for the chocolate bar buttons) */
+  --color-chocolate: #b07d5b; /* soft milk chocolate */
+  --color-chocolate-dark: #946446;
+
   /* Feedback */
   --color-mint: #5fc2b2;
   --color-mint-soft: #ddf4ef; /* "Saved", "Ready", correct in preview */
   --color-mint-text: #1f7a6c;
   --color-warning-soft: #fff1cc; /* gentle "needs a look" hints */
   --color-warning-text: #7a4b00;
+  --color-warning-line: #ebc35f; /* border of steps that need a look */
   --color-danger: #a12a3a; /* delete */
+  --color-danger-soft: #fbe6ea; /* background of delete buttons */
 
   /* Text */
   --color-ink: #2e1a3b; /* body text  */
@@ -83,12 +89,20 @@
     outline: 3px solid var(--color-gold);
     outline-offset: 2px;
   }
+
+  /* Text fields show focus with their purple border instead */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+  }
 }
 
 /* ------------------------------------------------------------------
    Custom utilities
    ------------------------------------------------------------------ */
 
+/* Wavy, two-colour scalloped edge under the header */
 @utility scallop-edge {
   height: 19px;
   border-top: 1px solid var(--color-burgundy);
@@ -107,6 +121,7 @@
       0 0 / 56px 16px repeat-x;
 }
 
+/* Diagonal lavender and pink stripes (not used right now) */
 @utility candy-stripe {
   background: repeating-linear-gradient(
     135deg,
@@ -115,6 +130,7 @@
   );
 }
 
+/* "3D" purple button edge that presses down when clicked */
 @utility candy-press {
   box-shadow: 0 3px 0 var(--color-purple-deep);
   transition:
@@ -127,6 +143,7 @@
   }
 }
 
+/* Same pressable edge, in gold (Publish button) */
 @utility candy-press-gold {
   box-shadow: 0 3px 0 var(--color-gold-dark);
   transition:
@@ -179,6 +196,120 @@
   }
   to {
     background-position: 0% 0;
+  }
+}
+
+/* Shiny strip of silver foil between the chocolate and the wrapper */
+@utility foil {
+  background: linear-gradient(
+    90deg,
+    #cfcfdc,
+    #ffffff 25%,
+    #bdbdcc 50%,
+    #ffffff 75%,
+    #cfcfdc
+  );
+}
+
+/* Crimped bottom edge of a candy wrapper. Uses the text colour,
+   so set it with text-* to match the wrapper. */
+@utility crimp-edge {
+  height: 8px;
+  background:
+    linear-gradient(135deg, currentColor 50%, transparent 50%) 0 0 / 10px 8px
+      repeat-x,
+    linear-gradient(225deg, currentColor 50%, transparent 50%) 0 0 / 10px 8px
+      repeat-x;
+}
+
+/* Empty editor: a golden ticket that floats and shines now and then */
+@utility animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@utility animate-shine-loop {
+  animation: shine-loop 3.5s ease-in-out infinite;
+}
+
+@utility animate-twinkle {
+  animation: twinkle 2.2s ease-in-out infinite;
+}
+
+/* Fades and bounces content in when it first appears */
+@utility animate-pop-in {
+  animation: pop-in 550ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-2deg);
+  }
+}
+
+@keyframes shine-loop {
+  0% {
+    background-position: 100% 0;
+  }
+  45%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(20deg);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Candy sprinkles bursting outwards (see Sprinkles.tsx). Each sprinkle
+   sets its own --x and --y (where it flies to), --rot and --spin. */
+@utility animate-sprinkle {
+  animation: sprinkle-burst 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) var(--delay, 0s)
+    both;
+}
+
+@keyframes sprinkle-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--rot)) scale(0.4);
+  }
+  15% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      rotate(calc(var(--rot) + var(--spin))) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--x) * 1.08),
+        calc(-50% + var(--y) * 1.08 + 12px)
+      )
+      rotate(calc(var(--rot) + var(--spin))) scale(1);
   }
 }
 

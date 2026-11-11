@@ -7,18 +7,22 @@ type Props = {
   onSelect: () => void;
 };
 
-// A radio button that looks like a ticket. Turns golden when clicked
+// A radio button that looks like a ticket. Turns golden when it's the correct
+// answer. It's a real (hidden) radio input, so keyboard and screen readers work.
 export default function GoldenTicketButton({
   name,
   label,
   isCorrect,
   onSelect,
 }: Props) {
+  // True while the wiggle + shine animation plays. Only set on click, so the
+  // animation doesn't replay every time the editor shows this answer.
   const [celebrate, setCelebrate] = useState(false);
 
   return (
     <label
       title={label}
+      // Stop celebrating once the longest animation (the shine) has finished
       onAnimationEnd={(e) => {
         if (e.animationName === "ticket-shine") setCelebrate(false);
       }}
@@ -28,6 +32,7 @@ export default function GoldenTicketButton({
           : "border-lavender-line bg-white text-purple hover:bg-lavender"
       } ${celebrate ? "ticket-celebrate" : ""}`}
     >
+      {/* Visually hidden (sr-only), but still focusable and clickable via the label */}
       <input
         type="radio"
         name={name}
@@ -44,6 +49,7 @@ export default function GoldenTicketButton({
   );
 }
 
+// Ticket outline with notches on the sides, plus a checkmark when chosen
 function TicketIcon({
   size = 26,
   checked = false,
