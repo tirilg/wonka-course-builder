@@ -1,4 +1,4 @@
-import type { Dispatch } from "react";
+import { useState, type Dispatch } from "react";
 import {
   ArrowDown,
   ArrowUp,
@@ -10,6 +10,7 @@ import {
 import type { Step } from "../../types";
 import type { Action } from "../../state/courseReducer";
 import { STEP_TYPE_LABEL, getMissing, getStepSummary } from "../../utils/steps";
+import DeleteStepModal from "./DeleteStepModal";
 
 type StepsListItemProps = {
   step: Step;
@@ -44,6 +45,9 @@ export default function StepListItem({
 }: StepsListItemProps) {
   // Display number from 1 instead of 0
   const number = index + 1;
+
+  // True after clicking delete: a popup asks "Are you sure?" first
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   // Complete shows as soon as you've completed needed inputs
   // Warning shows after you've left the step
@@ -166,13 +170,23 @@ export default function StepListItem({
           </button>
           <button
             type="button"
-            onClick={() => dispatch({ type: "delete", id: step.id })}
+            // Asks first instead of deleting straight away
+            onClick={() => setConfirmingDelete(true)}
             aria-label={`Delete step ${number}`}
             className="flex size-10 items-center justify-center rounded-button bg-danger-soft text-danger hover:bg-danger hover:text-white"
           >
             <Trash2 aria-hidden="true" className="size-5" />
           </button>
         </div>
+      )}
+
+      {/* Only on the page while it's open */}
+      {confirmingDelete && (
+        <DeleteStepModal
+          summary={getStepSummary(step)}
+          onConfirm={() => dispatch({ type: "delete", id: step.id })}
+          onCancel={() => setConfirmingDelete(false)}
+        />
       )}
     </li>
   );
