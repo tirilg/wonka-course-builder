@@ -70,10 +70,10 @@ export default function EmptyEditor({
         </p>
 
         <div
-          className="animate-pop-in mt-6 flex w-full flex-col gap-3"
+          className="animate-pop-in mt-6 flex w-full flex-col gap-4"
           style={popIn(320)}
         >
-          <p className="font-extrabold text-ink">
+          <p className="font-extrabold text-burgundy">
             Get started by selecting your first step:
           </p>
           <ChocolateBarButtons dispatch={dispatch} />

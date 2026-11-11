@@ -5,6 +5,7 @@ import {
   CircleAlert,
   CircleCheck,
   Copy,
+  GripVertical,
   Trash2,
 } from "lucide-react";
 import type { Step } from "../../types";
@@ -85,7 +86,9 @@ export default function StepListItem({
     >
       {/* Top row: drag handle, number, type/summary and status icon */}
       <div className="flex items-center gap-3 px-4 py-3">
-        <GripIcon />
+        <div className="text-purple">
+          <GripVertical aria-hidden="true" className="size-5" />
+        </div>
 
         {/* Clicking the card selects the step for editing */}
         <button
@@ -183,26 +186,10 @@ export default function StepListItem({
       {/* Only on the page while it's open */}
       {confirmingDelete && (
         <DeleteStepModal
-          summary={getStepSummary(step)}
           onConfirm={() => dispatch({ type: "delete", id: step.id })}
           onCancel={() => setConfirmingDelete(false)}
         />
       )}
     </li>
-  );
-}
-
-// Six-dot drag handle. Shows that the card can be dragged
-function GripIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 10 16"
-      className="h-4 w-2.5 shrink-0 cursor-grab fill-purple"
-    >
-      {[2, 8, 14].map((y) =>
-        [2, 8].map((x) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.6" />),
-      )}
-    </svg>
   );
 }

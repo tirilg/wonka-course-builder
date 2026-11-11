@@ -86,7 +86,6 @@ export default function Header({
               onClick={onPublish}
               disabled={!!publishBlocker}
               title={publishBlocker ?? undefined}
-              // Dark gold border, like Undo's purple one, so both edges look equally thick
               className={`candy-press-gold ${headerButtonClass} border-gold-dark bg-gold text-ink hover:bg-[#dcab2f]`}
             >
               <Ticket aria-hidden="true" className="size-5" />

@@ -2,14 +2,12 @@ import { useEffect, useRef } from "react";
 import { Trash2 } from "lucide-react";
 
 type DeleteStepModalProps = {
-  summary: string;
   onConfirm: () => void;
   onCancel: () => void;
 };
 
 // "Are you sure?" popup before deleting a step. Only on the page while it's open, like PublishModal.
 export default function DeleteStepModal({
-  summary,
   onConfirm,
   onCancel,
 }: DeleteStepModalProps) {

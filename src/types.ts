@@ -4,9 +4,7 @@ export type StepType = "text" | "image" | "multipleChoice";
 // Single choice in multiple choice
 export type Choice = { id: string; text: string };
 
-// Single step in a course.
-// Every step stores the fields for all three types, so switching type
-// never loses what was written. Only the fields for `type` are shown.
+// Single step in a course
 export type Step = {
   id: string;
   type: StepType;

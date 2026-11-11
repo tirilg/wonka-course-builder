@@ -17,8 +17,6 @@ type StepEditorProps = {
   dispatch: Dispatch<Action>;
 };
 
-// The editor card on the right: type toggle, the fields for the step's type,
-// and a banner if you come back to a step that isn't finished
 export default function StepEditor({
   step,
   index,
@@ -60,8 +58,6 @@ export default function StepEditor({
       </section>
 
       {/* Where you are in the course */}
-      {/* pt-6 above the text, and -mb-2 trims the card's 32px bottom padding to 24px,
-          so there's the same space above and below the text */}
       <footer className="-mb-2 border-t border-lavender pt-6 text-sm font-bold text-muted">
         Step {index + 1} of {total}
       </footer>

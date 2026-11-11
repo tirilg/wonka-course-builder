@@ -17,8 +17,8 @@ export const STEP_TYPE_ICON: Record<StepType, LucideIcon> = {
 
 // A short hint about what each step type is for
 export const STEP_TYPE_HINT: Record<StepType, string> = {
-  text: "Explain the rule",
-  image: "Show what it looks like",
+  text: "Explain how it works",
+  image: "Show how it looks",
   multipleChoice: "Check they got it",
 };
 

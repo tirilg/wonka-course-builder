@@ -1,11 +1,6 @@
-// All course data and every way it can change lives here.
-// Components never change data directly: they send an action with dispatch(),
-// and courseReducer works out the new state.
-
 import type { Choice, Step, StepPatch, StepType } from "../types";
 
-// How to reverse one change. Each one is applied to the course as it is
-// now, so undoing never throws away text typed in the meantime.
+// Entries in the undo stack. Each one describes how to reverse an action.
 export type UndoEntry =
   | { kind: "remove"; id: string } // reverses add and duplicate
   | { kind: "restore"; step: Step; index: number } // reverses delete
@@ -43,7 +38,7 @@ export const initialState: State = {
   leftIds: [],
 };
 
-// A new, empty answer for a question (also used by the question editor)
+// A new, empty answer for a question
 export function createChoice(): Choice {
   return { id: crypto.randomUUID(), text: "" };
 }
@@ -88,7 +83,6 @@ function pushUndo(state: State, entry: UndoEntry): State {
 }
 
 // Remove a step. If it was selected, select the one before it
-// (or the new first step, or nothing if the list is now empty).
 function removeStep(state: State, id: string): State {
   const index = state.steps.findIndex((s) => s.id === id);
   const steps = state.steps.filter((s) => s.id !== id);
