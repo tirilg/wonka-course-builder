@@ -75,7 +75,9 @@ export default function StepListItem({
         onDrop();
       }}
       onDragEnd={onDragEnd}
-      className={`shrink-0 overflow-hidden rounded-item border-2 shadow-card transition ${borderClass}`}
+      // animate-step-in plays once when the card first appears (a new, duplicated
+      // or restored step). Moving steps around doesn't replay it.
+      className={`animate-step-in shrink-0 overflow-hidden rounded-item border-2 shadow-card transition ${borderClass}`}
     >
       {/* Top row: drag handle, number, type/summary and status icon */}
       <div className="flex items-center gap-3 px-4 py-3">
