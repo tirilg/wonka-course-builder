@@ -62,7 +62,9 @@ export default function StepTypeToggle({
           style={{ left: pointerLeft }}
           className="absolute -top-[9px] size-4 -translate-x-1/2 rotate-45 rounded-tl-[3px] border-t-2 border-l-2 border-lavender-line bg-cream transition-[left] duration-300 ease-out"
         />
-        <h2 className="text-lg text-burgundy">{STEP_TYPE_ACTION[value]}</h2>
+        <h2 className="text-lg text-burgundy font-bold">
+          {STEP_TYPE_ACTION[value]}
+        </h2>
         <p className="text-sm text-muted">{STEP_TYPE_DESCRIPTION[value]}</p>
       </div>
     </fieldset>

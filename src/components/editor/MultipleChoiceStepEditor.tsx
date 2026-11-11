@@ -40,7 +40,7 @@ export default function MultipleChoiceStepEditor({
 
   return (
     <div className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Question</span>
         <input
           value={mc.question}
@@ -51,21 +51,22 @@ export default function MultipleChoiceStepEditor({
         />
       </label>
 
-      <fieldset className="flex flex-col gap-2">
-        <legend className={labelClass}>Answers (pick the correct one)</legend>
-        {/* One row per answer: ticket, text field, "Correct" tag and delete button */}
+      <fieldset className="flex flex-col gap-3">
+        <legend className={`${labelClass} mb-3`}>
+          Answers
+          <span className="mt-1 block text-sm font-normal text-muted">
+            Click the ticket next to the right answer to give it the golden
+            ticket. Learners who pick it get one step closer to earning theirs.
+          </span>
+        </legend>
+
+        {/* One row per answer: ticket button, text field, delete button.
+            The correct answer's field gets a gold border. */}
         {mc.choices.map((choice, i) => {
           const isCorrect = choice.id === mc.correctChoiceId;
 
           return (
-            <div
-              key={choice.id}
-              className={`flex items-center gap-2.5 rounded-item border-2 p-2 transition-colors ${
-                isCorrect
-                  ? "border-gold bg-gold-soft"
-                  : "border-lavender bg-white"
-              }`}
-            >
+            <div key={choice.id} className="flex items-center gap-3">
               <GoldenTicketButton
                 name={`correct-${step.id}`}
                 label={`Answer ${i + 1} is correct`}
@@ -79,14 +80,10 @@ export default function MultipleChoiceStepEditor({
               <input
                 value={choice.text}
                 onChange={(e) => setChoiceText(choice.id, e.target.value)}
-                aria-label={`Answer ${i + 1}`}
-                className={fieldClass}
+                aria-label={`Answer ${i + 1}${isCorrect ? " (correct)" : ""}`}
+                // The "!" makes the gold border win over fieldClass's own border
+                className={`${fieldClass} ${isCorrect ? "border-gold! focus:border-purple!" : ""}`}
               />
-              {isCorrect && (
-                <span className="shrink-0 rounded-full bg-gold px-2.5 py-1 text-xs font-extrabold tracking-wide uppercase">
-                  Correct
-                </span>
-              )}
               <button
                 type="button"
                 onClick={() => removeChoice(choice.id)}
@@ -97,9 +94,11 @@ export default function MultipleChoiceStepEditor({
                     ? `Delete answer ${i + 1}`
                     : "A question needs at least 2 answers"
                 }
-                className="flex size-10 shrink-0 items-center justify-center rounded-button text-muted hover:bg-danger-soft hover:text-danger"
+                // Quiet version: no border, just a grey ✕. Still 52px, so it lines up and is easy to click.
+                // Previous, bolder version: add "border-2 border-lavender-line bg-white hover:border-danger"
+                className="flex size-13 shrink-0 items-center justify-center rounded-button text-muted/70 transition-colors hover:bg-danger-soft hover:text-danger"
               >
-                <X aria-hidden="true" className="size-5" />
+                <X aria-hidden="true" className="size-5" strokeWidth={2.5} />
               </button>
             </div>
           );

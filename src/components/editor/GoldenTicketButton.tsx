@@ -26,7 +26,7 @@ export default function GoldenTicketButton({
       onAnimationEnd={(e) => {
         if (e.animationName === "ticket-shine") setCelebrate(false);
       }}
-      className={`flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-button border-2 transition-colors has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-gold ${
+      className={`flex size-13 shrink-0 cursor-pointer items-center justify-center rounded-button border-2 transition-colors has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-gold ${
         isCorrect
           ? "golden-ticket border-gold-dark text-ink"
           : "border-lavender-line bg-white text-purple hover:bg-lavender"

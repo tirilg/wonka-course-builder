@@ -20,7 +20,7 @@ export default function ImageStepEditor({
 
   return (
     <div className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Image link</span>
         <input
           type="url"
@@ -49,10 +49,10 @@ export default function ImageStepEditor({
           />
         ))}
 
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Image description</span>
         {/* Used as alt text, so people who can't see the image know what it shows */}
-        <span className="text-sm text-muted">
+        <span className="-mt-1 mb-1 text-sm text-muted">
           Describe what the image shows, for people using screen readers. For
           example: "Red emergency button next to the chocolate river".
         </span>

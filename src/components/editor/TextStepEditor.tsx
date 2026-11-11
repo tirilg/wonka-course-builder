@@ -11,7 +11,7 @@ export default function TextStepEditor({ step, onChange }: TextStepProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Title</span>
         <input
           value={text.title}
@@ -22,7 +22,7 @@ export default function TextStepEditor({ step, onChange }: TextStepProps) {
         />
       </label>
 
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Text</span>
         <textarea
           value={text.body}
