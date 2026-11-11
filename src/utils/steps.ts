@@ -47,7 +47,10 @@ export function getStepSummary(step: Step): string {
     case "text":
       return step.text.title || "Untitled text";
     case "image":
-      return step.image.alt || "No image yet";
+      // The description is the best summary; otherwise say whether there's an image
+      if (step.image.alt.trim()) return step.image.alt;
+      if (step.image.url.trim()) return "Image without description";
+      return "No image yet";
     case "multipleChoice":
       return step.multipleChoice.question || "Untitled question";
   }

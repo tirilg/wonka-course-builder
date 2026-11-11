@@ -45,7 +45,8 @@ export default function StepListItem({
   // Display number from 1 instead of 0
   const number = index + 1;
 
-  // Warn about missing fields once you've left editing a step
+  // Complete shows as soon as you've completed needed inputs
+  // Warning shows after you've left the step
   const missing = getMissing(step);
   const isComplete = missing.length === 0;
   const showWarning = !isSelected && !isComplete;
@@ -93,34 +94,28 @@ export default function StepListItem({
           </span>
 
           <span className="flex min-w-0 flex-col">
-            {/* Tag above the summary: "Step incomplete" or the step type */}
-            {showWarning ? (
-              <span className="truncate text-sm font-extrabold text-warning-text">
-                Step incomplete
-              </span>
-            ) : (
-              <span className="text-sm font-extrabold tracking-wider text-muted uppercase">
-                {STEP_TYPE_LABEL[step.type]}
-              </span>
-            )}
+            {/* Step type */}
+            <span className="text-sm font-extrabold tracking-wider text-muted uppercase">
+              {STEP_TYPE_LABEL[step.type]}
+            </span>
             <span className="truncate text-lg font-bold">
               {getStepSummary(step)}
             </span>
           </span>
         </button>
 
-        {/* Status icon: mint check when step is complete, amber "!" when something is missing */}
+        {/* Status on the right: mint check when complete, amber "!" when something is missing */}
         {isComplete && (
           <CircleCheck
             role="img"
-            aria-label="Complete"
+            aria-label="Step complete"
             className="size-6 shrink-0 fill-mint text-white"
           />
         )}
         {showWarning && (
           <CircleAlert
             role="img"
-            aria-label="Not complete"
+            aria-label="Step incomplete"
             className="size-6 shrink-0 fill-warning-text text-warning-soft"
           />
         )}
